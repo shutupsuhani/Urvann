@@ -13,7 +13,7 @@ app.use(cors());
 app.use(cors({
   origin: (origin, callback) => {
     const allowedOrigins = [
-      "https://urvann-inky.vercel.app/",
+      "https://urvann-inky.vercel.app",
       "http://localhost:5173",
     ];
     if (!origin || allowedOrigins.includes(origin)) {
