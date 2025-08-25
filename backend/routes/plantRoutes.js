@@ -1,6 +1,5 @@
 const Plant=require('../models/Plant');
 const express=require('express');
-const upload=require('../middleware/upload')
 
 const app=express.Router();
 

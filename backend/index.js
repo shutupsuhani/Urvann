@@ -14,6 +14,10 @@ app.use(express.json());
 // Routes
 app.use("/api/plants", plantRoutes);
 
+app.get("/", (req, res) => {
+  res.send("🌱 Urvann backend is running successfully 🚀");
+});
+
 // MongoDB connect
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("MongoDB connected"))
