@@ -15,6 +15,19 @@ The project is built with **MongoDB, Express, React, Node.js**, and deployed usi
 
 ---
 
+## 📌 API Endpoints
+
+### 🌿 Plants
+
+| Method | Endpoint                        | Description                          |
+|--------|---------------------------------|--------------------------------------|
+| GET    | `/api/plants`                   | Fetch all plants                     |
+| GET    | `/api/plants/:id`               | Fetch a single plant by ID           |
+| POST   | `/api/plants`                   | Add a new plant                      |
+
+
+---
+
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the repository
@@ -47,4 +60,4 @@ Deployment
 
 Backend: Hosted on Vercel → https://urvann-backend.vercel.app
 
-Frontend: Hosted on Vercel → https://urvann-frontend.vercel.app
+Frontend: Hosted on Vercel → https://urvann-inky.vercel.app/
