@@ -25,36 +25,24 @@ app.get('/',async (req,res)=>{
     
 });
 
-// POST add new plant (admin feature)
-app.post("/", upload.single("image"), async (req, res) => {
+app.post("/", async (req, res) => {
   try {
     const { name, price, categories, availability } = req.body;
-
-    console.log("REQ BODY:", req.body);
-
-    let plantCategories = [];
-    if (typeof categories === "string") {
-      plantCategories = categories.split(",").map(c => c.trim());
-    } else if (Array.isArray(categories)) {
-      plantCategories = categories;
-    }
 
     const newPlant = new Plant({
       name,
       price,
-      categories: plantCategories,
-      availability,
-      image: req.file ? req.file.path : null,
+      categories: Array.isArray(categories) ? categories : categories.split(","), 
+      availability
     });
 
     await newPlant.save();
     res.status(201).json(newPlant);
-  } catch (err) {
-    console.error("Error adding plant:", err);
-    res.status(500).json({ message: err.message, stack: err.stack });
+  } catch (error) {
+    console.error("Error adding plant:", error);
+    res.status(500).json({ error: error.message });
   }
 });
-
 
 
 app.get("/:id", async (req, res) => {

@@ -5,7 +5,7 @@ const cloudinary = require("../config/cloudinary");
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Urvann", 
+    folder: "urvann", 
     allowed_formats: ["jpg", "png", "jpeg"]
   }
 });

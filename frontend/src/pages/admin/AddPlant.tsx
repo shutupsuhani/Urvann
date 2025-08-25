@@ -11,7 +11,6 @@ interface PlantFormData {
   price: number;
   categories: string[];
   availability: boolean;
-  image: File | null ; 
 }
 
 const AddPlant: React.FC = () => {
@@ -25,7 +24,6 @@ const AddPlant: React.FC = () => {
     price: 0,
     categories: [],
     availability: true,
-    image: null,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,15 +39,6 @@ const AddPlant: React.FC = () => {
       ...prev,
       availability: e.target.checked,
     }));
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        image: e.target.files![0],
-      }));
-    }
   };
 
   const addCategory = (category: string) => {
@@ -80,7 +69,6 @@ const AddPlant: React.FC = () => {
     if (formData.price <= 0) return "Price must be greater than 0";
     if (formData.categories.length === 0)
       return "At least one category is required";
-    if (!formData.image) return "Image file is required";
     return null;
   };
 
@@ -97,17 +85,8 @@ const AddPlant: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      // ✅ Prepare FormData for file upload
-      const form = new FormData();
-      form.append("name", formData.name.trim());
-      form.append("price", String(formData.price));
-      form.append("availability", String(formData.availability));
-      form.append("categories", formData.categories.join(","));
-      if (formData.image) {
-        form.append("image", formData.image);
-      }
-
-      await plantService.addPlant(form);
+      // ✅ Send plain JSON now (no FormData required)
+      await plantService.addPlant(formData);
       navigate("/admin/plants");
     } catch (err) {
       setError("Failed to add plant. Please try again.");
@@ -267,27 +246,6 @@ const AddPlant: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Image Upload */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Plant Image *</h3>
-            <div>
-              <label
-                htmlFor="image"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Upload Image
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-              />
-            </div>
           </div>
 
           {/* Submit Button */}
